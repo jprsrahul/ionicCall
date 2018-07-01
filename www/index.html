@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="call">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/calllog.js"></script>
+    <script src="js/log.js"></script>
+  </head>
+  <body ng-controller="callCtrl">
+
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">First App</h1>
+      </ion-header-bar>
+      <ion-content >
+        <ion-refresher on-refresh="refresh()"></ion-refresher>  
+        <div class="card list" > 
+          <div class="item item-avator-left" >
+            <img src="img/ionic.png" alt="">
+            <!-- <ion-refresher on-refresh="message()"></ion-refresher>   -->
+          </div>
+        </div>
+        <div class="item item body">
+            Limit<input type="number" step="1" min="0" max="8" ng-model="rowlimit"></input>
+            Search<input type="text" placeholder="search" ng-model="search"/>
+          <table class="table"  >
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">name</th>
+                <th scope="col">date</th>
+                <th scope="col">Phonenumber</th>
+                <th scope="col">duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="mb in mobileNumbers | filter:search | limitTo:rowlimit ">
+                <th scope="row">
+                  <h6>{{mb.name}}</h6></th>
+                <td>
+                  <h6>{{mb.date  * 1000 | date:'MM-dd-yyyy'}}</h6></td>
+                <td>
+                  <h6>{{mb.number}}</h6></td>
+                  <td>
+                    <h6>{{mb.duration}}</h6></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="item item body">
+          <h3>Last number</h3><br/>
+          <h4>{{lastnumber}}</h4>
+        </div>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
